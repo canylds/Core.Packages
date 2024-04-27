@@ -2,11 +2,9 @@
 
 namespace Core.Security.Entities;
 
-public class OperationClaim : Entity<int>
+public class OperationClaim<TId> : Entity<TId>
 {
     public string Name { get; set; }
-
-    public virtual ICollection<UserOperationClaim> UserOperationClaims { get; set; } = null!;
 
     public OperationClaim()
     {
@@ -18,7 +16,7 @@ public class OperationClaim : Entity<int>
         Name = name;
     }
 
-    public OperationClaim(int id, string name) : base(id)
+    public OperationClaim(TId id, string name) : base(id)
     {
         Name = name;
     }

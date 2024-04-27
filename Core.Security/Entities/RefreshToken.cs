@@ -2,9 +2,9 @@
 
 namespace Core.Security.Entities;
 
-public class RefreshToken : Entity<int>
+public class RefreshToken<TId, TUserId> : Entity<TId>
 {
-    public int UserId { get; set; }
+    public TUserId UserId { get; set; }
     public string Token { get; set; }
     public DateTime Expires { get; set; }
     public string CreatedByIp { get; set; }
@@ -13,15 +13,14 @@ public class RefreshToken : Entity<int>
     public string? ReplacedByToken { get; set; }
     public string? ReasonRevoked { get; set; }
 
-    public virtual User User { get; set; } = null!;
-
     public RefreshToken()
     {
+        UserId = default!;
         Token = string.Empty;
         CreatedByIp = string.Empty;
     }
 
-    public RefreshToken(int userId, string token, DateTime expires, string createdByIp)
+    public RefreshToken(TUserId userId, string token, DateTime expires, string createdByIp)
     {
         UserId = userId;
         Token = token;
@@ -29,7 +28,7 @@ public class RefreshToken : Entity<int>
         CreatedByIp = createdByIp;
     }
 
-    public RefreshToken(int id, int userId, string token, DateTime expires, string createdByIp) : base(id)
+    public RefreshToken(TId id, TUserId userId, string token, DateTime expires, string createdByIp) : base(id)
     {
         UserId = userId;
         Token = token;

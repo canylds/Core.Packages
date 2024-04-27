@@ -8,7 +8,7 @@ public class Entity<TId> : IEntityTimestamps
     public DateTime? DeletedDate { get; set; }
     public Entity()
     {
-        Id = default;
+        Id = default!;
     }
 
     public Entity(TId id)

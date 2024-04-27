@@ -8,9 +8,10 @@ namespace Core.Security;
 
 public static class SecurityServiceRegistration
 {
-    public static IServiceCollection AddSecurityServices(this IServiceCollection services)
+    public static IServiceCollection AddSecurityServices<TUserId, TOperationClaimId, TRefreshTokenId>(this IServiceCollection services)
     {
-        services.AddScoped<ITokenHelper, JwtHelper>();
+        services.AddScoped<ITokenHelper<TUserId, TOperationClaimId, TRefreshTokenId>,
+            JwtHelper<TUserId, TOperationClaimId, TRefreshTokenId>>();
         services.AddScoped<IEmailAuthenticatorHelper, EmailAuthenticatorHelper>();
         services.AddScoped<IOtpAuthenticatorHelper, OtpNetOtpAuthenticatorHelper>();
 

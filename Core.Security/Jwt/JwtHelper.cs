@@ -10,7 +10,7 @@ using System.Security.Cryptography;
 
 namespace Core.Security.Jwt;
 
-public class JwtHelper : ITokenHelper
+public class JwtHelper<TUserId, TOperationClaimId, TRefreshTokenId> : ITokenHelper<TUserId, TOperationClaimId, TRefreshTokenId>
 {
     public IConfiguration Configuration { get; }
     private readonly TokenOptions _tokenOptions;
@@ -24,9 +24,9 @@ public class JwtHelper : ITokenHelper
             ?? throw new NullReferenceException($"\"{configurationSection}\" section cannot found in configuration.");
     }
 
-    public RefreshToken CreateRefreshToken(User user, string ipAddress)
+    public RefreshToken<TRefreshTokenId, TUserId> CreateRefreshToken(User<TUserId> user, string ipAddress)
     {
-        RefreshToken refreshToken = new()
+        RefreshToken<TRefreshTokenId, TUserId> refreshToken = new()
         {
             UserId = user.Id,
             Token = RandomRefreshToken(),
@@ -37,7 +37,7 @@ public class JwtHelper : ITokenHelper
         return refreshToken;
     }
 
-    public AccessToken CreateToken(User user, IList<OperationClaim> operationClaims)
+    public AccessToken CreateToken(User<TUserId> user, IList<OperationClaim<TOperationClaimId>> operationClaims)
     {
         _accessTokenExpiration = DateTime.Now.AddMinutes(_tokenOptions.AccessTokenExpiration);
 
@@ -59,9 +59,9 @@ public class JwtHelper : ITokenHelper
     }
 
     public JwtSecurityToken CreateJwtSecurityToken(TokenOptions tokenOptions,
-        User user,
+        User<TUserId> user,
         SigningCredentials signingCredentials,
-        IList<OperationClaim> operationClaims)
+        IList<OperationClaim<TOperationClaimId>> operationClaims)
     {
         JwtSecurityToken jwt = new(tokenOptions.Issuer,
             tokenOptions.Audience,
@@ -73,11 +73,11 @@ public class JwtHelper : ITokenHelper
         return jwt;
     }
 
-    private IEnumerable<Claim> SetClaims(User user, IList<OperationClaim> operationClaims)
+    private IEnumerable<Claim> SetClaims(User<TUserId> user, IList<OperationClaim<TOperationClaimId>> operationClaims)
     {
-        List<Claim> claims = new();
+        List<Claim> claims = [];
 
-        claims.AddNameIdentifier(user.Id.ToString());
+        claims.AddNameIdentifier(user.Id!.ToString()!);
         claims.AddEmail(user.Email);
         claims.AddName($"{user.FirstName} {user.LastName}");
         claims.AddRoles(operationClaims.Select(c => c.Name).ToArray());
