@@ -5,7 +5,7 @@ namespace Core.Security.Entities;
 public class UserOperationClaim<TId, TUserId, TOperationClaimId> : Entity<TId>
 {
     public TUserId UserId { get; set; }
-    public TUserId OperationClaimId { get; set; }
+    public TOperationClaimId OperationClaimId { get; set; }
 
     public UserOperationClaim()
     {
@@ -13,13 +13,13 @@ public class UserOperationClaim<TId, TUserId, TOperationClaimId> : Entity<TId>
         OperationClaimId = default!;
     }
 
-    public UserOperationClaim(TUserId userId, TUserId operationClaimId)
+    public UserOperationClaim(TUserId userId, TOperationClaimId operationClaimId)
     {
         UserId = userId;
         OperationClaimId = operationClaimId;
     }
 
-    public UserOperationClaim(TId id, TUserId userId, TUserId operationClaimId) : base(id)
+    public UserOperationClaim(TId id, TUserId userId, TOperationClaimId operationClaimId) : base(id)
     {
         UserId = userId;
         OperationClaimId = operationClaimId;
