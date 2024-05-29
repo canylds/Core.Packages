@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 
-namespace Core.CrossCuttingConcerns.Exceptions.Extensions;
+namespace Core.CrossCuttingConcerns.Exception.Extensions;
 
 public static class ExceptionMiddlewareExtensions
 {

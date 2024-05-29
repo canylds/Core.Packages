@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Core.CrossCuttingConcerns.Exceptions.HttpProblemDetails;
+namespace Core.CrossCuttingConcerns.Exception.HttpProblemDetails;
 
 public class BusinessProblemDetails : ProblemDetails
 {

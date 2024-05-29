@@ -1,9 +1,9 @@
-﻿using Core.CrossCuttingConcerns.Exceptions.Extensions;
-using Core.CrossCuttingConcerns.Exceptions.HttpProblemDetails;
-using Core.CrossCuttingConcerns.Exceptions.Types;
+﻿using Core.CrossCuttingConcerns.Exception.Extensions;
+using Core.CrossCuttingConcerns.Exception.HttpProblemDetails;
+using Core.CrossCuttingConcerns.Exception.Types;
 using Microsoft.AspNetCore.Http;
 
-namespace Core.CrossCuttingConcerns.Exceptions.Handlers;
+namespace Core.CrossCuttingConcerns.Exception.Handlers;
 
 public class HttpExceptionHandler : ExceptionHandler
 {
@@ -14,7 +14,7 @@ public class HttpExceptionHandler : ExceptionHandler
         set => _response = value;
     }
 
-    protected override Task HandleException(Exception exception)
+    protected override Task HandleException(System.Exception exception)
     {
         Response.StatusCode = StatusCodes.Status500InternalServerError;
         string details = new InternalServerErrorProblemDetails().AsJson();

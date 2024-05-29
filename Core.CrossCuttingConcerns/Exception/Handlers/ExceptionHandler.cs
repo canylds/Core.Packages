@@ -1,10 +1,10 @@
-﻿using Core.CrossCuttingConcerns.Exceptions.Types;
+﻿using Core.CrossCuttingConcerns.Exception.Types;
 
-namespace Core.CrossCuttingConcerns.Exceptions.Handlers;
+namespace Core.CrossCuttingConcerns.Exception.Handlers;
 
 public abstract class ExceptionHandler
 {
-    public Task HandleExceptionAsync(Exception exception) =>
+    public Task HandleExceptionAsync(System.Exception exception) =>
         exception switch
         {
             AuthorizationException authorizationException => HandleException(authorizationException),
@@ -18,5 +18,5 @@ public abstract class ExceptionHandler
     protected abstract Task HandleException(BusinessException validationException);
     protected abstract Task HandleException(NotFoundException validationException);
     protected abstract Task HandleException(ValidationException validationException);
-    protected abstract Task HandleException(Exception exception);
+    protected abstract Task HandleException(System.Exception exception);
 }

@@ -1,6 +1,6 @@
-﻿namespace Core.CrossCuttingConcerns.Exceptions.Types;
+﻿namespace Core.CrossCuttingConcerns.Exception.Types;
 
-public class ValidationException : Exception
+public class ValidationException : System.Exception
 {
     public IEnumerable<ValidationExceptionModel> Errors { get; }
 
@@ -14,7 +14,7 @@ public class ValidationException : Exception
         Errors = Array.Empty<ValidationExceptionModel>();
     }
 
-    public ValidationException(string? message, Exception? innerException) : base(message, innerException)
+    public ValidationException(string? message, System.Exception? innerException) : base(message, innerException)
     {
         Errors = Array.Empty<ValidationExceptionModel>();
     }

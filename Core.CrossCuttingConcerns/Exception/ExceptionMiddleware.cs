@@ -1,10 +1,10 @@
-﻿using Core.CrossCuttingConcerns.Exceptions.Handlers;
+﻿using Core.CrossCuttingConcerns.Exception.Handlers;
 using Core.CrossCuttingConcerns.Logging.Serilog;
 using Core.CrossCuttingConcerns.Logging;
 using Microsoft.AspNetCore.Http;
 using System.Text.Json;
 
-namespace Core.CrossCuttingConcerns.Exceptions;
+namespace Core.CrossCuttingConcerns.Exception;
 
 public class ExceptionMiddleware
 {
@@ -27,7 +27,7 @@ public class ExceptionMiddleware
         {
             await _next(context);
         }
-        catch (Exception exception)
+        catch (System.Exception exception)
         {
             await LogException(context, exception);
             await HandleExceptionAsync(context.Response, exception);
@@ -35,7 +35,7 @@ public class ExceptionMiddleware
 
     }
 
-    private Task LogException(HttpContext context, Exception exception)
+    private Task LogException(HttpContext context, System.Exception exception)
     {
         List<LogParameter> logParameters = new()
         {
@@ -59,7 +59,7 @@ public class ExceptionMiddleware
         return Task.CompletedTask;
     }
 
-    private Task HandleExceptionAsync(HttpResponse response, Exception exception)
+    private Task HandleExceptionAsync(HttpResponse response, System.Exception exception)
     {
         response.ContentType = "application/json";
         _httpExceptionHandler.Response = response;

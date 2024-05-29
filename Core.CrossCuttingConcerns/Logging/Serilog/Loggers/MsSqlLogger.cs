@@ -13,7 +13,7 @@ public class MsSqlLogger : LoggerServiceBase
     {
         MsSqlConfiguration logConfiguration =
             configuration.GetSection("SeriLogConfigurations:MsSqlConfiguration").Get<MsSqlConfiguration>()
-            ?? throw new Exception(SerilogMessages.NullOptionsMessage);
+            ?? throw new System.Exception(SerilogMessages.NullOptionsMessage);
 
         MSSqlServerSinkOptions sinkOptions = new()
         {
